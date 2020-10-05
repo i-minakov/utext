@@ -1,18 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QResizeEvent>
-#include <QFileSystemModel>
-#include <QDebug>
-#include <QFileDialog>
-#include <QTextStream>
-#include <QTextDocument>
-#include <QPlainTextDocumentLayout>
-#include <QMap>
-#include <iostream>
+#include "SubWindow.h"
 
 #define TOOLBARSIZE 25
+
+class SubWindow;
 
 namespace Ui {
 class MainWindow;
@@ -33,13 +26,11 @@ public:
 private:
     Ui::MainWindow *ui;
     QFileSystemModel *m_DirList {new QFileSystemModel(this)};
-//    QTextDocument *m_txtDoc;
-    std::map<QString, QTextDocument *> m_files;
+    std::map<QString, SubWindow *> m_files;
 
 public slots:
     void resizeEvent(QResizeEvent *event);
     void elementClicked(QModelIndex modelIndex);
-
     void findAction();
 };
 

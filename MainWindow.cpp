@@ -1,9 +1,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -11,11 +9,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->mainToolBar, &QToolBar::topLevelChanged, this, &MainWindow::changeToolBarSize);
     connect(ui->TreeView, SIGNAL(clicked(QModelIndex)), this, SLOT(elementClicked(QModelIndex)));
 
-    connect(ui->actionCopy, SIGNAL(triggered()), ui->TextEdit, SLOT(copy()));
-    connect(ui->actionPaste, SIGNAL(triggered()), ui->TextEdit, SLOT(paste()));
-    connect(ui->actionUndo, SIGNAL(triggered()), ui->TextEdit, SLOT(undo()));
-    connect(ui->actionRedo, SIGNAL(triggered()), ui->TextEdit, SLOT(redo()));
-    connect(ui->actionFind, SIGNAL(triggered()), this, SLOT(findAction()));
+//    connect(ui->actionCopy, SIGNAL(triggered()), ui->TextEdit, SLOT(copy()));
+//    connect(ui->actionPaste, SIGNAL(triggered()), ui->TextEdit, SLOT(paste()));
+//    connect(ui->actionUndo, SIGNAL(triggered()), ui->TextEdit, SLOT(undo()));
+//    connect(ui->actionRedo, SIGNAL(triggered()), ui->TextEdit, SLOT(redo()));
+//    connect(ui->actionFind, SIGNAL(triggered()), this, SLOT(findAction()));
     connect(ui->actionHide, &QAction::triggered, [this]() {
         ui->FileTree->isVisible() ? ui->FileTree->hide() : ui->FileTree->show();
     });
@@ -23,11 +21,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow() {
     delete ui;
-    delete m_DirList;
-    for (auto &i : m_files) {
-        delete i.second->documentLayout();
-        delete i.second;
-    }
 }
 
 void MainWindow::chooseDir() {
@@ -74,20 +67,18 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 
 void MainWindow::elementClicked(QModelIndex modelIndex) {
     QString path = m_DirList->filePath(modelIndex);
-    if (m_files.count(path) > 0) {
-         ui->TextEdit->setDocument(m_files[path]);
-         return;
-    }
+    QFile file(path);
 
-    QFile curFile(path);
-    if (!curFile.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
-    QTextStream in(&curFile);
-    QTextDocument *txtDoc = new QTextDocument(ui->TextEdit);
-    txtDoc->setDocumentLayout(new QPlainTextDocumentLayout(txtDoc));
-    txtDoc->setPlainText(in.readAll());
-    ui->TextEdit->setDocument(txtDoc);
-    m_files[path] = txtDoc;
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return ; // error
+    else if (m_files[path])
+        return ; // set focus
+    SubWindow *screen = new SubWindow(this);
+
+    ui->TextArea->hide();
+    ui->MainWindowSP->addWidget(screen);
+    m_files.insert({path, screen});
+    screen->setText(&file);
 }
 
 void MainWindow::findAction() {

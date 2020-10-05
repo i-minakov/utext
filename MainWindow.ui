@@ -20,7 +20,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="MainWindowLO">
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -37,7 +37,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QSplitter" name="MainWindowSp">
+     <widget class="QSplitter" name="MainWindowSP">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -268,7 +268,31 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QPlainTextEdit" name="TextEdit"/>
+      <widget class="QWidget" name="TextArea" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
