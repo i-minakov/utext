@@ -8,16 +8,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->ChooseDir, &QPushButton::clicked, this, &MainWindow::chooseDir);
-    connect(ui->mainToolBar, &QToolBar::topLevelChanged, this,
-            &MainWindow::changeToolBarSize);
-    connect(ui->TreeView, SIGNAL(clicked(QModelIndex)), this,
-             SLOT(elementClicked(QModelIndex)));
+    connect(ui->mainToolBar, &QToolBar::topLevelChanged, this, &MainWindow::changeToolBarSize);
+    connect(ui->TreeView, SIGNAL(clicked(QModelIndex)), this, SLOT(elementClicked(QModelIndex)));
+
     connect(ui->actionCopy, SIGNAL(triggered()), ui->TextEdit, SLOT(copy()));
     connect(ui->actionPaste, SIGNAL(triggered()), ui->TextEdit, SLOT(paste()));
     connect(ui->actionUndo, SIGNAL(triggered()), ui->TextEdit, SLOT(undo()));
     connect(ui->actionRedo, SIGNAL(triggered()), ui->TextEdit, SLOT(redo()));
     connect(ui->actionFind, SIGNAL(triggered()), this, SLOT(findAction()));
-
+    connect(ui->actionHide, &QAction::triggered, [this]() {
+        ui->FileTree->isVisible() ? ui->FileTree->hide() : ui->FileTree->show();
+    });
 }
 
 MainWindow::~MainWindow() {
