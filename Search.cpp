@@ -1,15 +1,18 @@
 #include "Search.h"
 #include "ui_Search.h"
 
+#include <QDebug>
+
 Search::Search(QWidget *parent) : QWidget(parent), ui(new Ui::Search) {
     ui->setupUi(this);
     this->setAutoFillBackground(true);
     connect(ui->Hide, &QPushButton::clicked, this, &Search::hideAction);
     connect(ui->Close, &QPushButton::clicked, [this]() {
+        this->hideAction();
         this->hide();
     });
-    if (getState())
-        hideAction();
+
+    qDebug() << parent->layout()->itemAt(1)->minimumSize().width();
 }
 
 Search::~Search() {
@@ -39,5 +42,5 @@ void Search::hideAction() {
 }
 
 bool Search::getState() {
-    return ui->Rep->isVisible();
+    return this->isVisible();
 }

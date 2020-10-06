@@ -72,13 +72,13 @@ void MainWindow::elementClicked(QModelIndex modelIndex) {
         return ; // error
     SubWindow *screen = new SubWindow(this);
 
-    for (auto &i : m_screen)
-        i->resetPosition();
     ui->TextArea->hide();
     ui->MainWindowSP->addWidget(screen);
     m_screen.push_back(screen);
     screen->addNewFile(&file);
     this->setMinimumWidth(this->size().width() / 4 + (m_screen.size() + 1) * 250);
+    for (auto &i : m_screen)
+        i->resetPosition();
 }
 
 int MainWindow::checkFile(QString path) {

@@ -32,6 +32,8 @@ void SubWindow::addNewFile(QFile *file) {
 }
 
 void SubWindow::resetPosition() {
+    if (!m_search->getState())
+        return ;
     m_search->move(this->width() - 255, 25);
     m_search->show();
     m_search->raise();
@@ -46,8 +48,7 @@ void SubWindow::keyPressEvent(QKeyEvent *event) {
         m_search->move(this->width() - 255, 25);
         m_search->show();
         m_search->raise();
-        if (m_search->getState())
-            m_search->hideAction();
+        m_search->hideAction();
     }
 }
 
