@@ -1,8 +1,6 @@
 #include "Search.h"
 #include "ui_Search.h"
 
-#include <QDebug>
-
 Search::Search(QWidget *parent) : QWidget(parent), ui(new Ui::Search) {
     ui->setupUi(this);
     this->setAutoFillBackground(true);
@@ -10,9 +8,9 @@ Search::Search(QWidget *parent) : QWidget(parent), ui(new Ui::Search) {
     connect(ui->Close, &QPushButton::clicked, [this]() {
         this->hideAction();
         this->hide();
+        for (auto &i : m_tabList)
+            i->setContentsMargins(0, 0, 0, 0);
     });
-
-    qDebug() << parent->layout()->itemAt(1)->minimumSize().width();
 }
 
 Search::~Search() {
@@ -20,7 +18,7 @@ Search::~Search() {
 }
 
 void Search::hideAction() {
-    delete ui->Buttons->layout();
+    delete ui->ButtonsWd->layout();
     QLayout *layout = nullptr;
 
     if (ui->Rep->isVisible())
@@ -33,14 +31,28 @@ void Search::hideAction() {
     layout->addWidget(ui->Down);
     if (ui->Rep->isVisible())
         layout->addWidget(ui->Close);
-    ui->Buttons->setLayout(layout);
-    ui->Buttons->setMinimumWidth(ui->Rep->isVisible() ? 90 : 45);
-    ui->Buttons->setMaximumWidth(ui->Rep->isVisible() ? 90 : 45);
+    ui->ButtonsWd->setLayout(layout);
+    ui->ButtonsWd->setMinimumWidth(ui->Rep->isVisible() ? 90 : 45);
+    ui->ButtonsWd->setMaximumWidth(ui->Rep->isVisible() ? 90 : 45);
     this->setMinimumHeight(ui->Rep->isVisible() ? 50 : 100);
     this->setMaximumHeight(ui->Rep->isVisible() ? 50 : 100);
     ui->Rep->isVisible() ? ui->Rep->hide() : ui->Rep->show();
+    for (auto &i : getList())
+        i->setContentsMargins(0, getHeight() ? 100 : 50, 0, 0);
+}
+
+void Search::addNewTag(QWidget *newTab) {
+    m_tabList.push_back(newTab);
+}
+
+QVector<QWidget *> &Search::getList() {
+    return m_tabList;
 }
 
 bool Search::getState() {
     return this->isVisible();
+}
+
+bool Search::getHeight() {
+    return ui->Rep->isVisible();
 }

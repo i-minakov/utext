@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->ChooseDir, &QPushButton::clicked, this, &MainWindow::chooseDir);
     connect(ui->mainToolBar, &QToolBar::topLevelChanged, this, &MainWindow::changeToolBarSize);
     connect(ui->TreeView, SIGNAL(clicked(QModelIndex)), this, SLOT(elementClicked(QModelIndex)));
+    connect(ui->MainWindowSP, &QSplitter::splitterMoved, [this]() {
+        for (auto &i : m_screen)
+            i->resetPosition();
+    });
     connect(ui->actionHide, &QAction::triggered, [this]() {
         ui->FileTree->isVisible() ? ui->FileTree->hide() : ui->FileTree->show();
     });

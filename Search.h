@@ -15,10 +15,14 @@ public:
     ~Search();
 
     void hideAction();
+    void addNewTag(QWidget *newTab);
+    QVector<QWidget *> &getList();
     bool getState();
+    bool getHeight();
 
 private:
     Ui::Search *ui;
+    QVector<QWidget *> m_tabList;
 };
 
 #endif // SEARCH_H

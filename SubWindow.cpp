@@ -25,6 +25,9 @@ void SubWindow::addNewFile(QFile *file) {
     QTextStream in(file);
     QTextDocument *txtDoc = new QTextDocument(textArea);
 
+    if (m_search->getState())
+        newTab->setContentsMargins(0, m_search->getHeight() ? 100 : 50, 0, 0);
+    m_search->addNewTag(newTab);
     txtDoc->setDocumentLayout(new QPlainTextDocumentLayout(txtDoc));
     txtDoc->setPlainText(in.readAll());
     textArea->setDocument(txtDoc);
@@ -34,7 +37,9 @@ void SubWindow::addNewFile(QFile *file) {
 void SubWindow::resetPosition() {
     if (!m_search->getState())
         return ;
-    m_search->move(this->width() - 255, 25);
+    m_search->setMinimumWidth(this->width());
+    m_search->setMaximumWidth(this->width());
+    m_search->move(0, 25);
     m_search->show();
     m_search->raise();
 }
@@ -45,10 +50,14 @@ QMap<QString, QTextDocument *> &SubWindow::getFiles() {
 
 void SubWindow::keyPressEvent(QKeyEvent *event) {
     if ((event->key() == Qt::Key_F)  && QApplication::keyboardModifiers() && Qt::ControlModifier) {
-        m_search->move(this->width() - 255, 25);
+        m_search->setMinimumWidth(this->width());
+        m_search->setMaximumWidth(this->width());
+        m_search->move(0, 25);
         m_search->show();
         m_search->raise();
         m_search->hideAction();
+        for (auto &i : m_search->getList())
+            i->setContentsMargins(0, m_search->getHeight() ? 100 : 50, 0, 0);
     }
 }
 
