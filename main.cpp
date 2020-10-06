@@ -6,5 +6,7 @@ int main(int argc, char *argv[]) {
     MainWindow w;
     w.show();
 
-    return a.exec();
+    int flag = a.exec();
+//    system("leaks -q utext");
+    return flag;
 }

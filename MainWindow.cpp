@@ -1,19 +1,12 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     connect(ui->ChooseDir, &QPushButton::clicked, this, &MainWindow::chooseDir);
     connect(ui->mainToolBar, &QToolBar::topLevelChanged, this, &MainWindow::changeToolBarSize);
     connect(ui->TreeView, SIGNAL(clicked(QModelIndex)), this, SLOT(elementClicked(QModelIndex)));
-
-//    connect(ui->actionCopy, SIGNAL(triggered()), ui->TextEdit, SLOT(copy()));
-//    connect(ui->actionPaste, SIGNAL(triggered()), ui->TextEdit, SLOT(paste()));
-//    connect(ui->actionUndo, SIGNAL(triggered()), ui->TextEdit, SLOT(undo()));
-//    connect(ui->actionRedo, SIGNAL(triggered()), ui->TextEdit, SLOT(redo()));
-//    connect(ui->actionFind, SIGNAL(triggered()), this, SLOT(findAction()));
     connect(ui->actionHide, &QAction::triggered, [this]() {
         ui->FileTree->isVisible() ? ui->FileTree->hide() : ui->FileTree->show();
     });
@@ -49,9 +42,9 @@ void MainWindow::changeToolBarSize() {
 }
 
 void MainWindow::setTreeView(QString path) {
-    QStringList splitList = path.split("/");
+    QString dirName = Help::getFileName(path);
 
-    ui->DirName->setText(path != "/" ? splitList.at(splitList.size() - 1) : path);
+    ui->DirName->setText(dirName == nullptr ? "/" : dirName);
     m_DirList->setRootPath(path);
     ui->TreeView->setModel(m_DirList);
     ui->TreeView->setRootIndex(m_DirList->index(path));
@@ -61,8 +54,10 @@ void MainWindow::setTreeView(QString path) {
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
     QMainWindow::resizeEvent(event);
-    ui->FileTree->setMinimumWidth(this->size().width() / 4);
-    ui->FileTree->setMaximumWidth(this->size().width() / 2);
+    for (auto &i : m_screen)
+        i->resetPosition();
+    ui->FileTree->setMinimumWidth(this->size().width() / 6);
+    ui->FileTree->setMaximumWidth(this->size().width() / 4);
 }
 
 void MainWindow::elementClicked(QModelIndex modelIndex) {
@@ -71,16 +66,46 @@ void MainWindow::elementClicked(QModelIndex modelIndex) {
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return ; // error
-    else if (m_files[path])
+    else if (!m_screen.empty() && checkFile(file.fileName()) != -1)
         return ; // set focus
+    else if (this->size().width() / 4 + (m_screen.size() + 1) * 250 > this->size().width())
+        return ; // error
     SubWindow *screen = new SubWindow(this);
 
+    for (auto &i : m_screen)
+        i->resetPosition();
     ui->TextArea->hide();
     ui->MainWindowSP->addWidget(screen);
-    m_files.insert({path, screen});
-    screen->setText(&file);
+    m_screen.push_back(screen);
+    screen->addNewFile(&file);
+    this->setMinimumWidth(this->size().width() / 4 + (m_screen.size() + 1) * 250);
 }
 
-void MainWindow::findAction() {
+int MainWindow::checkFile(QString path) {
+    int index = 0;
 
+    for (auto &i : m_screen) {
+        if (i->getFiles().find(path) != i->getFiles().end())
+            return index;
+        index += 1;
+    }
+    return -1;
+}
+
+QVector<SubWindow *> &MainWindow::getScreen() {
+    return m_screen;
+}
+
+void MainWindow::dropEvent(QDropEvent *event) {
+    if (event->proposedAction() == Qt::CopyAction) {
+        if (QDir(event->mimeData()->urls().begin()->toLocalFile()).exists()
+            && QDir(event->mimeData()->urls().begin()->toLocalFile()).isReadable()) {
+            ui->FileTree->setCurrentIndex(1);
+            setTreeView(event->mimeData()->urls().begin()->toLocalFile());
+        }
+    }
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event) {
+    event->acceptProposedAction();
 }

@@ -5,33 +5,35 @@
 
 #define TOOLBARSIZE 25
 
-class SubWindow;
-
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
     void chooseDir();
     void changeToolBarSize();
     void setTreeView(QString path);
+    int checkFile(QString path);
+    QVector<SubWindow *> &getScreen();
 
 private:
     Ui::MainWindow *ui;
     QFileSystemModel *m_DirList {new QFileSystemModel(this)};
-    std::map<QString, SubWindow *> m_files;
+    QVector<SubWindow *> m_screen;
 
 public slots:
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
     void elementClicked(QModelIndex modelIndex);
-    void findAction();
+
+protected:
+    void dropEvent(QDropEvent *event) override;
+    void dragEnterEvent(QDragEnterEvent *event) override;
 };
 
 #endif // MAINWINDOW_H

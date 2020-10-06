@@ -27,15 +27,20 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         MainWindow.cpp \
-    SubWindow.cpp
+    SubWindow.cpp \
+    Search.cpp \
+    Help.cpp
 
 HEADERS += \
         MainWindow.h \
-    SubWindow.h
+    SubWindow.h \
+    Search.h \
+    Help.h
 
 FORMS += \
         MainWindow.ui \
-    SubWindow.ui
+    SubWindow.ui \
+    Search.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

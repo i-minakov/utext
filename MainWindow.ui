@@ -16,10 +16,19 @@
     <height>500</height>
    </size>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="MainWindowLO">
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <property name="spacing">
      <number>0</number>
@@ -38,6 +47,9 @@
     </property>
     <item>
      <widget class="QSplitter" name="MainWindowSP">
+      <property name="acceptDrops">
+       <bool>true</bool>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -48,6 +60,9 @@
        <bool>false</bool>
       </property>
       <widget class="QStackedWidget" name="FileTree">
+       <property name="acceptDrops">
+        <bool>true</bool>
+       </property>
        <property name="styleSheet">
         <string notr="true"/>
        </property>
@@ -55,6 +70,9 @@
         <number>0</number>
        </property>
        <widget class="QWidget" name="ChooseSreen">
+        <property name="acceptDrops">
+         <bool>true</bool>
+        </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <property name="spacing">
           <number>0</number>
@@ -76,6 +94,9 @@
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
+           <property name="acceptDrops">
+            <bool>true</bool>
+           </property>
            <property name="text">
             <string>Choose DIr</string>
            </property>
@@ -84,6 +105,9 @@
         </layout>
        </widget>
        <widget class="QWidget" name="TreeScreen">
+        <property name="acceptDrops">
+         <bool>true</bool>
+        </property>
         <layout class="QVBoxLayout" name="verticalLayout">
          <property name="spacing">
           <number>0</number>
@@ -254,11 +278,17 @@
          </item>
          <item>
           <widget class="QTreeView" name="TreeView">
+           <property name="acceptDrops">
+            <bool>true</bool>
+           </property>
+           <property name="dragDropOverwriteMode">
+            <bool>false</bool>
+           </property>
            <property name="dragDropMode">
             <enum>QAbstractItemView::DragDrop</enum>
            </property>
            <property name="defaultDropAction">
-            <enum>Qt::IgnoreAction</enum>
+            <enum>Qt::CopyAction</enum>
            </property>
            <property name="headerHidden">
             <bool>true</bool>
@@ -319,6 +349,9 @@
      <width>25</width>
      <height>16777215</height>
     </size>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::DefaultContextMenu</enum>
    </property>
    <property name="movable">
     <bool>true</bool>
