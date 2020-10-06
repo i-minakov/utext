@@ -31,6 +31,7 @@ public:
     ~SubWindow() override;
 
     void addNewFile(QFile *file);
+    void closeTab(const int& index);
     void resetPosition();
     QMap<QString, QTextDocument *> &getFiles();
 

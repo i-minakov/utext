@@ -19,6 +19,7 @@ public:
     void chooseDir();
     void changeToolBarSize();
     void setTreeView(QString path);
+    void deleteScreen(SubWindow *screen);
     int checkFile(QString path);
     QVector<SubWindow *> &getScreen();
 

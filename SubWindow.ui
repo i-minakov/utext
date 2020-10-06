@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>721</width>
-    <height>816</height>
+    <width>372</width>
+    <height>626</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -42,6 +42,9 @@
     <widget class="QTabWidget" name="FileList">
      <property name="currentIndex">
       <number>-1</number>
+     </property>
+     <property name="tabsClosable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

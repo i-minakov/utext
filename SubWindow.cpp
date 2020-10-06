@@ -6,6 +6,7 @@ SubWindow::SubWindow(MainWindow *window, QWidget *parent) :
     QWidget(parent), ui(new Ui::SubWindow), m_parent(window) {
     ui->setupUi(this);
     m_search->hide();
+    connect(ui->FileList, &QTabWidget::tabCloseRequested, this, &SubWindow::closeTab);
 }
 
 SubWindow::~SubWindow() {
@@ -32,6 +33,22 @@ void SubWindow::addNewFile(QFile *file) {
     txtDoc->setPlainText(in.readAll());
     textArea->setDocument(txtDoc);
     m_files.insert(file->fileName(), txtDoc);
+}
+
+void SubWindow::closeTab(const int& index) {
+    if (index == -1)
+        return ;
+    QWidget* tabItem = ui->FileList->widget(index);
+    QMap<QString, QTextDocument *>::iterator itr = m_files.begin();
+
+    for (int i = 0; i < index; i++)
+        itr += 1;
+    m_files.erase(itr);
+    ui->FileList->removeTab(index);
+    delete(tabItem);
+    tabItem = nullptr;
+    if (m_files.size() == 0)
+        m_parent->deleteScreen(this);
 }
 
 void SubWindow::resetPosition() {

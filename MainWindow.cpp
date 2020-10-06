@@ -56,6 +56,16 @@ void MainWindow::setTreeView(QString path) {
         ui->TreeView->hideColumn(i);
 }
 
+void MainWindow::deleteScreen(SubWindow *screen) {
+    screen->hide();
+    m_screen.remove(m_screen.indexOf(screen));
+    this->setMinimumWidth(this->size().width() / 4 + (m_screen.size() + 1) * 250);
+    if (m_screen.size() == 0) {
+        qDebug() << "yes";
+        ui->TextArea->show();
+    }
+}
+
 void MainWindow::resizeEvent(QResizeEvent* event) {
     QMainWindow::resizeEvent(event);
     for (auto &i : m_screen)
