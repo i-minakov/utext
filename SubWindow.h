@@ -13,6 +13,7 @@
 #include <QUrl>
 #include <QWidget>
 #include <QMimeData>
+#include <QFontDialog>
 
 #include "Message.h"
 #include "Search.h"

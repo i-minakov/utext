@@ -110,7 +110,10 @@ void MainWindow::setSignals(QPlainTextEdit *textArea) {
     connect(ui->actionFont, &QAction::triggered, [this, textArea]() {
         if (m_screen.empty() || !textArea->hasFocus())
             return ;
-        qDebug() << "font";
+        bool ok;
+        QFont font = QFontDialog::getFont(&ok, QFont("Helvetica [Cronyx]", 10), this);
+        if (ok)
+            textArea->setFont(font);
     });
 }
 
