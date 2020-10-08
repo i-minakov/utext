@@ -32,14 +32,14 @@ void SubWindow::addNewFile(QFile *file) {
     txtDoc->setDocumentLayout(new QPlainTextDocumentLayout(txtDoc));
     txtDoc->setPlainText(in.readAll());
     textArea->setDocument(txtDoc);
-    m_files.insert(file->fileName(), txtDoc);
+    m_files.insert(file->fileName(), textArea);
 }
 
 void SubWindow::closeTab(const int& index) {
     if (index == -1)
         return ;
     QWidget* tabItem = ui->FileList->widget(index);
-    QMap<QString, QTextDocument *>::iterator itr = m_files.begin();
+    QMap<QString, QPlainTextEdit *>::iterator itr = m_files.begin();
 
     for (int i = 0; i < index; i++)
         itr += 1;
@@ -61,7 +61,7 @@ void SubWindow::resetPosition() {
     m_search->raise();
 }
 
-QMap<QString, QTextDocument *> &SubWindow::getFiles() {
+QMap<QString, QPlainTextEdit *> &SubWindow::getFiles() {
     return m_files;
 }
 
@@ -94,4 +94,49 @@ void SubWindow::dropEvent(QDropEvent *event) {
 
 void SubWindow::dragEnterEvent(QDragEnterEvent *event) {
     event->acceptProposedAction();
+}
+
+QPlainTextEdit *SubWindow::getActivArea() {
+    for (auto &i : m_files) {
+        if (i->isEnabled())
+            return i;
+    }
+    return nullptr;
+}
+
+void SubWindow::replaceBut() {
+    QString repl = m_search->getReplaceText();
+    if (repl.isEmpty())
+        return;
+    m_searchIt->insertText(m_search->getReplaceText());
+    downSearch();
+}
+
+void SubWindow::upSearch() {
+    if (m_searchIt == m_match.begin())
+        m_searchIt = m_match.end() - 1;
+    else
+        m_searchIt--;
+    getActivArea()->setTextCursor(*m_searchIt);
+}
+
+void SubWindow::downSearch() {
+    if (m_searchIt == m_match.end() - 1)
+        m_searchIt = m_match.begin();
+    else
+        m_searchIt++;
+    getActivArea()->setTextCursor(*m_searchIt);
+}
+
+void SubWindow::textRecieve(QString text) {
+    m_match.clear();
+    QPlainTextEdit *area = getActivArea();
+    QTextCursor cursor = area->document()->find(text);
+    m_match.push_back(cursor);
+    while (cursor.position() != -1) {
+        cursor = area->document()->find(text, cursor);
+        m_match.push_back(cursor);
+    }
+    area->setTextCursor(m_match.first());
+    m_searchIt = m_match.begin();
 }

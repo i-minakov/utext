@@ -11,6 +11,11 @@ Search::Search(QWidget *parent) : QWidget(parent), ui(new Ui::Search) {
         for (auto &i : m_tabList)
             i->setContentsMargins(0, 0, 0, 0);
     });
+    connect(ui->Fin, SIGNAL(textEdited(QString)), parentWidget(),
+                SLOT(textRecieve(QString)));
+    connect(ui->Down, SIGNAL(clicked()), parentWidget(), SLOT(downSearch()));
+    connect(ui->Up, SIGNAL(clicked()), parentWidget(), SLOT(upSearch()));
+    connect(ui->Rep, SIGNAL(editingFinished()), parentWidget(), SLOT(replaceBut()));
 }
 
 Search::~Search() {
@@ -41,6 +46,10 @@ void Search::hideAction() {
         i->setContentsMargins(0, getHeight() ? 100 : 50, 0, 0);
 }
 
+QString Search::getReplaceText() {
+    return ui->Rep->text();
+}
+
 void Search::addNewTag(QWidget *newTab) {
     m_tabList.push_back(newTab);
 }
@@ -56,3 +65,5 @@ bool Search::getState() {
 bool Search::getHeight() {
     return ui->Rep->isVisible();
 }
+
+

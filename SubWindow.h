@@ -13,6 +13,7 @@
 #include <QUrl>
 #include <QWidget>
 #include <QMimeData>
+#include <QRegularExpression>
 
 #include "Search.h"
 #include "Help.h"
@@ -33,16 +34,23 @@ public:
     void addNewFile(QFile *file);
     void closeTab(const int& index);
     void resetPosition();
-    QMap<QString, QTextDocument *> &getFiles();
+    QMap<QString, QPlainTextEdit *> &getFiles();
+    QPlainTextEdit *getActivArea();
 
 private:
     Ui::SubWindow *ui;
     MainWindow *m_parent;
-    QMap<QString, QTextDocument *> m_files;
+    QMap<QString, QPlainTextEdit *> m_files;
     Search *m_search {new Search(this)};
+    QVector<QTextCursor> m_match;
+    QVector<QTextCursor>::iterator m_searchIt{m_match.begin()};
 
 public slots:
     void keyPressEvent(QKeyEvent *event) override;
+    void textRecieve(QString text);
+    void downSearch();
+    void upSearch();
+    void replaceBut();
 
 protected:
     void dropEvent(QDropEvent *event) override;

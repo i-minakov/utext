@@ -19,6 +19,7 @@ public:
     QVector<QWidget *> &getList();
     bool getState();
     bool getHeight();
+    QString getReplaceText();
 
 private:
     Ui::Search *ui;
