@@ -29,18 +29,21 @@ SOURCES += \
         MainWindow.cpp \
     SubWindow.cpp \
     Search.cpp \
-    Help.cpp
+    Help.cpp \
+    Message.cpp
 
 HEADERS += \
         MainWindow.h \
     SubWindow.h \
     Search.h \
-    Help.h
+    Help.h \
+    Message.h
 
 FORMS += \
         MainWindow.ui \
     SubWindow.ui \
-    Search.ui
+    Search.ui \
+    Message.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

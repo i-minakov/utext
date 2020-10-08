@@ -92,12 +92,17 @@ void MainWindow::setSignals(QPlainTextEdit *textArea) {
         textArea->redo();
     });
 
-    connect(ui->actionCut, &QAction::triggered, [this, textArea]() {
+    connect(ui->actionSave, &QAction::triggered, [this, textArea]() {
         if (m_screen.empty() || !textArea->hasFocus())
             return ;
         textArea->cut();
     });
-    connect(ui->actionCut, &QAction::triggered, [this, textArea]() {
+    connect(ui->actionFind, &QAction::triggered, [this, textArea]() {
+        if (m_screen.empty() || !textArea->hasFocus())
+            return ;
+        textArea->cut();
+    });
+    connect(ui->action, &QAction::triggered, [this, textArea]() {
         if (m_screen.empty() || !textArea->hasFocus())
             return ;
         textArea->cut();

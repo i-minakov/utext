@@ -14,6 +14,7 @@
 #include <QWidget>
 #include <QMimeData>
 
+#include "Message.h"
 #include "Search.h"
 #include "Help.h"
 
@@ -33,6 +34,8 @@ public:
     void addNewFile(QFile *file);
     void closeTab(const int& index);
     void resetPosition();
+    void setFocusTab(int index);
+    Search *getSerach();
     QMap<QString, QTextDocument *> &getFiles();
 
 private:
