@@ -61,6 +61,14 @@ void SubWindow::resetPosition() {
     m_search->raise();
 }
 
+void SubWindow::setFocusTab(int index) {
+    ui->FileList->setCurrentIndex(index);
+}
+
+Search *SubWindow::getSerach() {
+    return m_search;
+}
+
 QMap<QString, QTextDocument *> &SubWindow::getFiles() {
     return m_files;
 }
@@ -83,11 +91,14 @@ void SubWindow::dropEvent(QDropEvent *event) {
         foreach (QUrl url, event->mimeData()->urls()) {
             QFile file(url.toLocalFile());
 
-            if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-                return ; // error
-            else if (!m_parent->getScreen().empty() && m_parent->checkFile(file.fileName()) != -1)
-                return ; // set focus
+            if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                Message error("Invalid file" + url.toLocalFile());
+                return ;
+            }
+            else if (!m_parent->getScreen().empty() && m_parent->checkFile(file.fileName()) != nullptr)
+                return ;
             addNewFile(&file);
+            ui->FileList->setCurrentIndex(ui->FileList->count() - 1);
         }
     }
 }
