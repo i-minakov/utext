@@ -65,6 +65,7 @@ void MainWindow::deleteScreen(SubWindow *screen) {
         ui->TextArea->show();
 }
 
+// SIGNALS
 void MainWindow::setSignals(QPlainTextEdit *textArea) {
     connect(ui->actionPaste, &QAction::triggered, [this, textArea]() {
         if (m_screen.empty() || !textArea->hasFocus())
@@ -91,21 +92,25 @@ void MainWindow::setSignals(QPlainTextEdit *textArea) {
             return ;
         textArea->redo();
     });
-
-    connect(ui->actionCut, &QAction::triggered, [this, textArea]() {
+    connect(ui->actionFind, &QAction::triggered, [this, textArea]() {
         if (m_screen.empty() || !textArea->hasFocus())
             return ;
-        textArea->cut();
+        qDebug() << "find";
     });
-    connect(ui->actionCut, &QAction::triggered, [this, textArea]() {
+    connect(ui->actionReplace, &QAction::triggered, [this, textArea]() {
         if (m_screen.empty() || !textArea->hasFocus())
             return ;
-        textArea->cut();
+        qDebug() << "replace";
     });
-    connect(ui->actionCut, &QAction::triggered, [this, textArea]() {
+    connect(ui->actionSave, &QAction::triggered, [this, textArea]() {
         if (m_screen.empty() || !textArea->hasFocus())
             return ;
-        textArea->cut();
+        qDebug() << "save";
+    });
+    connect(ui->actionFont, &QAction::triggered, [this, textArea]() {
+        if (m_screen.empty() || !textArea->hasFocus())
+            return ;
+        qDebug() << "font";
     });
 }
 
