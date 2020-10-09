@@ -1,6 +1,8 @@
 #include "Search.h"
 #include "ui_Search.h"
 
+#include <QDebug>
+
 Search::Search(QWidget *parent) : QWidget(parent), ui(new Ui::Search) {
     ui->setupUi(this);
     this->setAutoFillBackground(true);
@@ -11,8 +13,7 @@ Search::Search(QWidget *parent) : QWidget(parent), ui(new Ui::Search) {
         for (auto &i : m_tabList)
             i->setContentsMargins(0, 0, 0, 0);
     });
-    connect(ui->Fin, SIGNAL(textEdited(QString)), parentWidget(),
-                SLOT(textRecieve(QString)));
+    connect(ui->Fin, SIGNAL(textEdited(QString)), parentWidget(), SLOT(textRecieve(QString)));
     connect(ui->Down, SIGNAL(clicked()), parentWidget(), SLOT(downSearch()));
     connect(ui->Up, SIGNAL(clicked()), parentWidget(), SLOT(upSearch()));
     connect(ui->Rep, SIGNAL(editingFinished()), parentWidget(), SLOT(replaceBut()));
@@ -54,6 +55,10 @@ void Search::addNewTag(QWidget *newTab) {
     m_tabList.push_back(newTab);
 }
 
+void Search::deleteTab(QWidget *tab) {
+    m_tabList.remove(m_tabList.indexOf(tab));
+}
+
 QVector<QWidget *> &Search::getList() {
     return m_tabList;
 }
@@ -65,5 +70,3 @@ bool Search::getState() {
 bool Search::getHeight() {
     return ui->Rep->isVisible();
 }
-
-

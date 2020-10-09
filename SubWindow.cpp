@@ -33,7 +33,6 @@ void SubWindow::addNewFile(QFile *file) {
     txtDoc->setPlainText(in.readAll());
     textArea->setDocument(txtDoc);
     m_files.insert(file->fileName(), textArea);
-    m_parent->setSignals(this, textArea);
 }
 
 void SubWindow::closeTab(const int& index) {
@@ -42,6 +41,7 @@ void SubWindow::closeTab(const int& index) {
     QWidget* tabItem = ui->FileList->widget(index);
     QMap<QString, QPlainTextEdit *>::iterator itr = m_files.begin();
 
+    m_search->deleteTab(tabItem);
     for (int i = 0; i < index; i++)
         itr += 1;
     m_files.erase(itr);
@@ -87,8 +87,6 @@ void SubWindow::showSearch() {
     m_search->show();
     m_search->raise();
     m_search->hideAction();
-    for (auto &i : m_search->getList())
-        i->setContentsMargins(0, m_search->getHeight() ? 100 : 50, 0, 0);
 }
 
 void SubWindow::dropEvent(QDropEvent *event) {

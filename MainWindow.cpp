@@ -6,6 +6,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->FileTree->setCurrentIndex(0);
 
     connect(ui->ChooseDir, &QPushButton::clicked, this, &MainWindow::chooseDir);
+    connect(ui->ChNewDir, &QPushButton::clicked, [this]() {
+        ui->CloseDir->animateClick();
+        chooseDir();
+    });
     connect(ui->mainToolBar, &QToolBar::topLevelChanged, this, &MainWindow::changeToolBarSize);
     connect(ui->TreeView, SIGNAL(clicked(QModelIndex)), this, SLOT(elementClicked(QModelIndex)));
     connect(ui->MainWindowSP, &QSplitter::splitterMoved, [this]() {
@@ -15,6 +19,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionHide, &QAction::triggered, [this]() {
         ui->FileTree->isVisible() ? ui->FileTree->hide() : ui->FileTree->show();
     });
+    connect(ui->actionCut, &QAction::triggered, [this]() {
+        for (auto &i : m_screen)
+            for (auto &j : i->getFiles())
+                if (j->isEnabled() && j->hasFocus())
+                    j->cut();
+    });
+    connect(ui->CloseDir, &QPushButton::clicked, [this]() {
+        for (auto &i : m_screen)
+            for (int j = i->getFiles().size() - 1; j >= 0; j--)
+                i->closeTab(j);
+    });
+    setSignals();
 }
 
 MainWindow::~MainWindow() {
@@ -65,68 +81,75 @@ void MainWindow::deleteScreen(SubWindow *screen) {
         ui->TextArea->show();
 }
 
-// SIGNALS
-void MainWindow::setSignals(SubWindow *sub, QPlainTextEdit *textArea) {
-    connect(ui->actionPaste, &QAction::triggered, [this, textArea]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        textArea->paste();
+void MainWindow::setSignals() {
+    connect(ui->actionPaste, &QAction::triggered, [this]() {
+        for (auto &i : m_screen)
+            for (auto &j : i->getFiles())
+                if (j->isEnabled() && j->hasFocus())
+                    j->paste();
     });
-    connect(ui->actionCopy, &QAction::triggered, [this, textArea]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        textArea->copy();
+    connect(ui->actionCopy, &QAction::triggered, [this]() {
+        for (auto &i : m_screen)
+            for (auto &j : i->getFiles())
+                if (j->isEnabled() && j->hasFocus())
+                    j->copy();
     });
-    connect(ui->actionCut, &QAction::triggered, [this, textArea]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        textArea->cut();
+    connect(ui->actionCut, &QAction::triggered, [this]() {
+        for (auto &i : m_screen)
+            for (auto &j : i->getFiles())
+                if (j->isEnabled() && j->hasFocus())
+                    j->cut();
     });
-    connect(ui->actionUndo, &QAction::triggered, [this, textArea]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        textArea->undo();
+    connect(ui->actionUndo, &QAction::triggered, [this]() {
+        for (auto &i : m_screen)
+            for (auto &j : i->getFiles())
+                if (j->isEnabled() && j->hasFocus())
+                    j->undo();
     });
-    connect(ui->actionRedo, &QAction::triggered, [this, textArea]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        textArea->redo();
+    connect(ui->actionRedo, &QAction::triggered, [this]() {
+        for (auto &i : m_screen)
+            for (auto &j : i->getFiles())
+                if (j->isEnabled() && j->hasFocus())
+                    j->redo();
     });
-    connect(ui->actionFind, &QAction::triggered, [this, textArea, sub]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        sub->showSearch();
+    connect(ui->actionFind, &QAction::triggered, [this]() {
+        for (auto &i : m_screen)
+            i->showSearch();
     });
-    connect(ui->actionReplace, &QAction::triggered, [this, textArea, sub]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        sub->showSearch();
-        sub->getSerach()->hideAction();
+    connect(ui->actionReplace, &QAction::triggered, [this]() {
+        for (auto &i : m_screen) {
+            i->showSearch();
+            i->getSerach()->hideAction();
+        }
     });
-    connect(ui->actionSave, &QAction::triggered, [this, textArea, sub]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        QMap<QString, QPlainTextEdit *> files = sub->getFiles();
-        QFile saveFile(files.key(textArea));
-        if (!saveFile.open(QIODevice::Truncate | QIODevice::WriteOnly))
-            return;
-        QTextStream st(&saveFile);
-        st << textArea->toPlainText();
-        saveFile.close();
-        qDebug() << "save";
+    connect(ui->actionSave, &QAction::triggered, [this]() {
+        for (auto &i : m_screen) {
+            QMap<QString, QPlainTextEdit *> files = i->getFiles();
+            for (auto &j : i->getFiles()) {
+                if (j->isEnabled() && j->hasFocus()) {
+                    QFile saveFile(files.key(j));
+                    if (!saveFile.open(QIODevice::Truncate | QIODevice::WriteOnly))
+                        return;
+                    QTextStream st(&saveFile);
+                    st << j->toPlainText();
+                }
+            }
+        }
     });
-    connect(ui->actionSave_as, &QAction::triggered, [this, textArea, sub]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        qDebug() << "save as";
-    });
-    connect(ui->actionFont, &QAction::triggered, [this, textArea]() {
-        if (m_screen.empty() || !textArea->isEnabled())
-            return ;
-        bool ok;
-        QFont font = QFontDialog::getFont(&ok, QFont("Helvetica [Cronyx]", 10), this);
-        if (ok)
-            textArea->setFont(font);
+//    connect(ui->actionSave_as, &QAction::triggered, [this, textArea, sub]() {
+//        if (m_screen.empty() || !textArea->isEnabled())
+//            return ;
+//        qDebug() << "save as";
+//    });
+    connect(ui->actionFont, &QAction::triggered, [this]() {
+        for (auto &i : m_screen)
+            for (auto &j : i->getFiles())
+                if (j->isEnabled() && j->hasFocus()) {
+                    bool ok;
+                    QFont font = QFontDialog::getFont(&ok, QFont("Helvetica [Cronyx]", 10), this);
+                    if (ok)
+                        j->setFont(font);
+                }
     });
 }
 
