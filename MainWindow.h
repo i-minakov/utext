@@ -20,7 +20,7 @@ public:
     void changeToolBarSize();
     void setTreeView(QString path);
     void deleteScreen(SubWindow *screen);
-    void setSignals(SubWindow *sub, QPlainTextEdit *textArea);
+    void setSignals();
     QWidget *checkFile(QString path);
     QVector<SubWindow *> &getScreen();
     void saveToFile(QString path, QString text);

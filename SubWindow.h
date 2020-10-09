@@ -14,6 +14,7 @@
 #include <QWidget>
 #include <QMimeData>
 #include <QRegularExpression>
+#include <QCompleter>
 #include <QFontDialog>
 
 #include "Message.h"

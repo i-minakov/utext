@@ -33,7 +33,6 @@ void SubWindow::addNewFile(QFile *file) {
     txtDoc->setPlainText(in.readAll());
     textArea->setDocument(txtDoc);
     m_files.insert(file->fileName(), textArea);
-    m_parent->setSignals(this, textArea);
 }
 
 void SubWindow::closeTab(const int& index) {
@@ -42,6 +41,7 @@ void SubWindow::closeTab(const int& index) {
     QWidget* tabItem = ui->FileList->widget(index);
     QMap<QString, QPlainTextEdit *>::iterator itr = m_files.begin();
 
+    m_search->deleteTab(tabItem);
     for (int i = 0; i < index; i++)
         itr += 1;
     m_files.erase(itr);
@@ -87,8 +87,6 @@ void SubWindow::showSearch() {
     m_search->show();
     m_search->raise();
     m_search->hideAction();
-    for (auto &i : m_search->getList())
-        i->setContentsMargins(0, m_search->getHeight() ? 100 : 50, 0, 0);
 }
 
 void SubWindow::dropEvent(QDropEvent *event) {
@@ -148,19 +146,14 @@ void SubWindow::textRecieve(QString text) {
     m_match.clear();
     if (text.isEmpty())
         return;
-    QRegularExpression regex(text, QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpression regex(text, QRegularExpression::CaseInsensitiveOption);
     QPlainTextEdit *area = getActivArea();
     QRegularExpressionMatchIterator match = regex.globalMatch(area->document()->toPlainText());
-    if (!match.next().hasMatch())
-        return;
     QTextCursor cursor = area->document()->find(match.next().captured(0));
     m_match.push_back(cursor);
-    while(match.hasNext()) {
-        QRegularExpressionMatch i = match.next();
-        if (i.hasMatch()) {
-            cursor = area->document()->find(i.captured(0), cursor);
-            m_match.push_back(cursor);
-        }
+    while(match.hasNext() && match.peekNext().hasMatch()) {
+        cursor = area->document()->find(match.next().captured(0), cursor);
+        m_match.push_back(cursor);
     }
     area->setTextCursor(m_match.first());
     m_searchIt = m_match.begin();

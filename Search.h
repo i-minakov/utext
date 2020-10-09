@@ -16,6 +16,7 @@ public:
 
     void hideAction();
     void addNewTag(QWidget *newTab);
+    void deleteTab(QWidget *tab);
     QVector<QWidget *> &getList();
     bool getState();
     bool getHeight();
