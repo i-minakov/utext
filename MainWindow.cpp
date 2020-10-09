@@ -15,6 +15,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionHide, &QAction::triggered, [this]() {
         ui->FileTree->isVisible() ? ui->FileTree->hide() : ui->FileTree->show();
     });
+//    connect(ui->ChNewDir, &QPushButton::clicked, [=](){
+//        for (auto &i : m_screen)
+//            delete i;
+//        this->chooseDir();
+//    });
 }
 
 MainWindow::~MainWindow() {
@@ -107,18 +112,15 @@ void MainWindow::setSignals(SubWindow *sub, QPlainTextEdit *textArea) {
         if (m_screen.empty() || !textArea->isEnabled())
             return ;
         QMap<QString, QPlainTextEdit *> files = sub->getFiles();
-        QFile saveFile(files.key(textArea));
-        if (!saveFile.open(QIODevice::Truncate | QIODevice::WriteOnly))
-            return;
-        QTextStream st(&saveFile);
-        st << textArea->toPlainText();
-        saveFile.close();
-        qDebug() << "save";
+        this->saveToFile(files.key(textArea), textArea->toPlainText());
     });
-    connect(ui->actionSave_as, &QAction::triggered, [this, textArea, sub]() {
+    connect(ui->actionSave_as, &QAction::triggered, [this, textArea]() {
         if (m_screen.empty() || !textArea->isEnabled())
             return ;
-        qDebug() << "save as";
+        QString file = QFileDialog::getSaveFileName(this, "Save file", "", nullptr, nullptr);
+        if (file.isEmpty())
+            return;
+        this->saveToFile(file, textArea->toPlainText());
     });
     connect(ui->actionFont, &QAction::triggered, [this, textArea]() {
         if (m_screen.empty() || !textArea->isEnabled())
@@ -128,6 +130,15 @@ void MainWindow::setSignals(SubWindow *sub, QPlainTextEdit *textArea) {
         if (ok)
             textArea->setFont(font);
     });
+}
+
+void MainWindow::saveToFile(QString path, QString text) {
+    QFile saveFile(path);
+    if (!saveFile.open(QIODevice::Truncate | QIODevice::WriteOnly))
+        return;
+    QTextStream st(&saveFile);
+    st << text;
+    saveFile.close();
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {

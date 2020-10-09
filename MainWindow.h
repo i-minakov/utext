@@ -23,6 +23,7 @@ public:
     void setSignals(SubWindow *sub, QPlainTextEdit *textArea);
     QWidget *checkFile(QString path);
     QVector<SubWindow *> &getScreen();
+    void saveToFile(QString path, QString text);
 
 private:
     Ui::MainWindow *ui;

@@ -146,12 +146,21 @@ void SubWindow::downSearch() {
 
 void SubWindow::textRecieve(QString text) {
     m_match.clear();
+    if (text.isEmpty())
+        return;
+    QRegularExpression regex(text, QRegularExpression::DotMatchesEverythingOption);
     QPlainTextEdit *area = getActivArea();
-    QTextCursor cursor = area->document()->find(text);
+    QRegularExpressionMatchIterator match = regex.globalMatch(area->document()->toPlainText());
+    if (!match.next().hasMatch())
+        return;
+    QTextCursor cursor = area->document()->find(match.next().captured(0));
     m_match.push_back(cursor);
-    while (cursor.position() != -1) {
-        cursor = area->document()->find(text, cursor);
-        m_match.push_back(cursor);
+    while(match.hasNext()) {
+        QRegularExpressionMatch i = match.next();
+        if (i.hasMatch()) {
+            cursor = area->document()->find(i.captured(0), cursor);
+            m_match.push_back(cursor);
+        }
     }
     area->setTextCursor(m_match.first());
     m_searchIt = m_match.begin();
