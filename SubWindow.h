@@ -14,7 +14,9 @@
 #include <QWidget>
 #include <QMimeData>
 #include <QRegularExpression>
+#include <QFontDialog>
 
+#include "Message.h"
 #include "Search.h"
 #include "Help.h"
 
@@ -36,6 +38,9 @@ public:
     void resetPosition();
     QMap<QString, QPlainTextEdit *> &getFiles();
     QPlainTextEdit *getActivArea();
+    void setFocusTab(int index);
+    Search *getSerach();
+    void showSearch();
 
 private:
     Ui::SubWindow *ui;

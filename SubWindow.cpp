@@ -33,6 +33,7 @@ void SubWindow::addNewFile(QFile *file) {
     txtDoc->setPlainText(in.readAll());
     textArea->setDocument(txtDoc);
     m_files.insert(file->fileName(), textArea);
+    m_parent->setSignals(this, textArea);
 }
 
 void SubWindow::closeTab(const int& index) {
@@ -61,21 +62,33 @@ void SubWindow::resetPosition() {
     m_search->raise();
 }
 
+void SubWindow::setFocusTab(int index) {
+    ui->FileList->setCurrentIndex(index);
+}
+
+Search *SubWindow::getSerach() {
+    return m_search;
+}
+
 QMap<QString, QPlainTextEdit *> &SubWindow::getFiles() {
     return m_files;
 }
 
 void SubWindow::keyPressEvent(QKeyEvent *event) {
-    if ((event->key() == Qt::Key_F)  && QApplication::keyboardModifiers() && Qt::ControlModifier) {
-        m_search->setMinimumWidth(this->width());
-        m_search->setMaximumWidth(this->width());
-        m_search->move(0, 25);
-        m_search->show();
-        m_search->raise();
-        m_search->hideAction();
-        for (auto &i : m_search->getList())
-            i->setContentsMargins(0, m_search->getHeight() ? 100 : 50, 0, 0);
-    }
+    if ((event->key() == Qt::Key_F)  && QApplication::keyboardModifiers()
+                && Qt::ControlModifier)
+        showSearch();
+}
+
+void SubWindow::showSearch() {
+    m_search->setMinimumWidth(this->width());
+    m_search->setMaximumWidth(this->width());
+    m_search->move(0, 25);
+    m_search->show();
+    m_search->raise();
+    m_search->hideAction();
+    for (auto &i : m_search->getList())
+        i->setContentsMargins(0, m_search->getHeight() ? 100 : 50, 0, 0);
 }
 
 void SubWindow::dropEvent(QDropEvent *event) {
@@ -83,11 +96,14 @@ void SubWindow::dropEvent(QDropEvent *event) {
         foreach (QUrl url, event->mimeData()->urls()) {
             QFile file(url.toLocalFile());
 
-            if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-                return ; // error
-            else if (!m_parent->getScreen().empty() && m_parent->checkFile(file.fileName()) != -1)
-                return ; // set focus
+            if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                Message error("Invalid file" + url.toLocalFile());
+                return ;
+            }
+            else if (!m_parent->getScreen().empty() && m_parent->checkFile(file.fileName()) != nullptr)
+                return ;
             addNewFile(&file);
+            ui->FileList->setCurrentIndex(ui->FileList->count() - 1);
         }
     }
 }

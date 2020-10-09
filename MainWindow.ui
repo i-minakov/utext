@@ -125,7 +125,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QWidget" name="widget" native="true">
+          <widget class="QWidget" name="TreeBar" native="true">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -366,20 +366,24 @@
     <enum>LeftToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>false</bool>
+    <bool>true</bool>
    </attribute>
    <addaction name="separator"/>
    <addaction name="actionHide"/>
+   <addaction name="separator"/>
    <addaction name="actionSave"/>
+   <addaction name="actionSave_as"/>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
+   <addaction name="separator"/>
    <addaction name="actionCopy"/>
    <addaction name="actionPaste"/>
-   <addaction name="actionCat"/>
+   <addaction name="actionCut"/>
    <addaction name="separator"/>
    <addaction name="actionFind"/>
    <addaction name="actionReplace"/>
    <addaction name="separator"/>
-   <addaction name="actionUndo"/>
-   <addaction name="actionRedo"/>
+   <addaction name="actionFont"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionHide">
@@ -391,15 +395,21 @@
    <property name="text">
     <string>Save</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionPaste">
    <property name="text">
     <string>Paste</string>
    </property>
   </action>
-  <action name="actionCat">
+  <action name="actionCut">
    <property name="text">
-    <string>Cat</string>
+    <string>Cut</string>
+   </property>
+   <property name="toolTip">
+    <string>Cut</string>
    </property>
   </action>
   <action name="actionFind">
@@ -428,6 +438,25 @@
    </property>
    <property name="toolTip">
     <string>Copy</string>
+   </property>
+  </action>
+  <action name="actionFont">
+   <property name="text">
+    <string>Font</string>
+   </property>
+   <property name="toolTip">
+    <string>Font</string>
+   </property>
+  </action>
+  <action name="actionSave_as">
+   <property name="text">
+    <string>Save as...</string>
+   </property>
+   <property name="toolTip">
+    <string>Save as...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
  </widget>
