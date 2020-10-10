@@ -30,14 +30,18 @@ SOURCES += \
     SubWindow.cpp \
     Search.cpp \
     Help.cpp \
-    Message.cpp
+    Message.cpp \
+    TextArea.cpp \
+    Highlighter.cpp
 
 HEADERS += \
         MainWindow.h \
     SubWindow.h \
     Search.h \
     Help.h \
-    Message.h
+    Message.h \
+    TextArea.h \
+    Highlighter.h
 
 FORMS += \
         MainWindow.ui \
@@ -49,3 +53,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

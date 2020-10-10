@@ -27,4 +27,4 @@ private:
     QVector<QWidget *> m_tabList;
 };
 
-#endif // SEARCH_H
+#endif

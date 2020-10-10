@@ -16,10 +16,15 @@
 #include <QRegularExpression>
 #include <QCompleter>
 #include <QFontDialog>
+#include <QStringListModel>
 
+#include "Highlighter.h"
 #include "Message.h"
 #include "Search.h"
 #include "Help.h"
+#include "TextArea.h"
+
+#define WORDLIST ":/compliter/wordlist.txt"
 
 class MainWindow;
 
@@ -44,12 +49,15 @@ public:
     void showSearch();
 
 private:
+    QAbstractItemModel *modelFromFile(const QString& fileName);
+
     Ui::SubWindow *ui;
     MainWindow *m_parent;
     QMap<QString, QPlainTextEdit *> m_files;
     Search *m_search {new Search(this)};
     QVector<QTextCursor> m_match;
-    QVector<QTextCursor>::iterator m_searchIt{m_match.begin()};
+    QVector<QTextCursor>::iterator m_searchIt {m_match.begin()};
+    QCompleter *m_completer {new QCompleter(this)};
 
 public slots:
     void keyPressEvent(QKeyEvent *event) override;
@@ -63,4 +71,4 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
 };
 
-#endif // SUBWINDOW_H
+#endif

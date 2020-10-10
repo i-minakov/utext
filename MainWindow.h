@@ -39,4 +39,4 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
 };
 
-#endif // MAINWINDOW_H
+#endif

@@ -18,4 +18,4 @@ private:
     Ui::Message *ui;
 };
 
-#endif // MESSAGE_H
+#endif

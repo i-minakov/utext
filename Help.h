@@ -9,4 +9,4 @@ public:
     static QString getFileName(QString path);
 };
 
-#endif // HELP_H
+#endif
