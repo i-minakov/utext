@@ -366,7 +366,7 @@
     <enum>LeftToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
    <addaction name="actionHide"/>
@@ -385,7 +385,6 @@
    <addaction name="separator"/>
    <addaction name="actionFont"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionHide">
    <property name="text">
     <string>Hide</string>

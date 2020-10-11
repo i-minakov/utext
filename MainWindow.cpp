@@ -1,9 +1,11 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     ui->FileTree->setCurrentIndex(0);
+    ui->TreeView->setContextMenuPolicy(Qt::CustomContextMenu);
 
     connect(ui->ChooseDir, &QPushButton::clicked, this, &MainWindow::chooseDir);
     connect(ui->ChNewDir, &QPushButton::clicked, [this]() {
@@ -30,11 +32,76 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
             for (int j = i->getFiles().size() - 1; j >= 0; j--)
                 i->closeTab(j);
     });
+    connect(ui->Create, &QPushButton::clicked, this, &MainWindow::createFile);
+    connect(ui->TreeView, SIGNAL(customContextMenuRequested(QPoint)),
+        this, SLOT(treeCustomMenu(QPoint)));
+    connect(ui->Remove, SIGNAL(clicked()), this, SLOT(removeItem()));
     setSignals();
 }
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+void MainWindow::removeItem() {
+    QString path = m_DirList->filePath(ui->TreeView->currentIndex());
+    QMessageBox::StandardButton reply;
+
+    reply = QMessageBox::question(this, "", "Are you sure you want to remove " + path + "?");
+    if (reply == QMessageBox::No)
+        return;
+    if (QDir(path).exists())
+        QDir(path).removeRecursively();
+    else
+        QFile(path).remove();
+}
+
+void MainWindow::renameItem() {
+    QString path = m_DirList->filePath(ui->TreeView->currentIndex());
+    QString name = QInputDialog::getText(this, "", "Name");
+    if (QDir(path).exists())
+        QDir(path).rename(QDir(path).dirName(), name);
+    else
+        QFile(path).rename(name);
+}
+
+void MainWindow::treeCustomMenu(QPoint point) {
+    QString path = m_DirList->filePath(ui->TreeView->indexAt(point));
+    QMenu contextMenu(tr("Context menu"), this);
+
+    QAction actionRemove("Remove", this);
+    connect(&actionRemove, &QAction::triggered, this, &MainWindow::removeItem);
+    QAction actionRename("Rename", this);
+    connect(&actionRename, &QAction::triggered, this, &MainWindow::renameItem);
+    contextMenu.addAction(&actionRename);
+    contextMenu.addAction(&actionRemove);
+    if (!path.isEmpty() && !QDir(path).exists()) {
+        contextMenu.exec(mapToGlobal(point));
+        return;
+    }
+    QAction actionNewFile("New File", this);
+    connect(&actionNewFile, &QAction::triggered, this, &MainWindow::createFile);
+    QAction actionNewDir("New Folder", this);
+    connect(&actionNewDir, &QAction::triggered, [=](){
+        QDir(path).mkdir(QInputDialog::getText(this, "", "New Folder name"));
+    });
+    contextMenu.addAction(&actionNewDir);
+    contextMenu.addAction(&actionNewFile);
+    contextMenu.exec(mapToGlobal(point));
+}
+
+void MainWindow::createFile() {
+    QString parentDir;
+    if (QDir(m_DirList->filePath(ui->TreeView->currentIndex())).exists())
+        parentDir = m_DirList->filePath(ui->TreeView->currentIndex());
+    else
+        parentDir = m_DirList->filePath(m_DirList->
+                                            parent(ui->TreeView->currentIndex()));
+    QString file = (parentDir.isEmpty() ? m_DirList->rootPath() : parentDir) +
+                "/" + QInputDialog::getText(this, "", "Name of file");
+    QFile newFile(file);
+    newFile.open(QIODevice::ReadWrite);
+    newFile.close();
 }
 
 void MainWindow::chooseDir() {

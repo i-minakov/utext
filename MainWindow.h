@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "SubWindow.h"
+#include <QMessageBox>
 
 #define TOOLBARSIZE 25
 
@@ -33,6 +34,10 @@ private:
 public slots:
     void resizeEvent(QResizeEvent *event) override;
     void elementClicked(QModelIndex modelIndex);
+    void createFile();
+    void treeCustomMenu(QPoint point);
+    void removeItem();
+    void renameItem();
 
 protected:
     void dropEvent(QDropEvent *event) override;
