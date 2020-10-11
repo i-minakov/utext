@@ -47,10 +47,6 @@ void Search::hideAction() {
         i->setContentsMargins(0, getHeight() ? 100 : 50, 0, 0);
 }
 
-QString Search::getReplaceText() {
-    return ui->Rep->text();
-}
-
 void Search::addNewTag(QWidget *newTab) {
     m_tabList.push_back(newTab);
 }
@@ -59,8 +55,8 @@ void Search::deleteTab(QWidget *tab) {
     m_tabList.remove(m_tabList.indexOf(tab));
 }
 
-QVector<QWidget *> &Search::getList() {
-    return m_tabList;
+void Search::setFinFocus() {
+    ui->Fin->setFocus();
 }
 
 bool Search::getState() {
@@ -69,4 +65,16 @@ bool Search::getState() {
 
 bool Search::getHeight() {
     return ui->Rep->isVisible();
+}
+
+QVector<QWidget *> &Search::getList() {
+    return m_tabList;
+}
+
+QString Search::getReplaceText() {
+    return ui->Rep->text();
+}
+
+QString Search::getFindText() {
+    return ui->Fin->text();
 }

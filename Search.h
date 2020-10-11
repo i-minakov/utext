@@ -17,10 +17,12 @@ public:
     void hideAction();
     void addNewTag(QWidget *newTab);
     void deleteTab(QWidget *tab);
-    QVector<QWidget *> &getList();
+    void setFinFocus();
     bool getState();
     bool getHeight();
+    QVector<QWidget *> &getList();
     QString getReplaceText();
+    QString getFindText();
 
 private:
     Ui::Search *ui;
