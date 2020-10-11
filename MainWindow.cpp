@@ -47,7 +47,7 @@ void MainWindow::removeItem() {
     QString path = m_DirList->filePath(ui->TreeView->currentIndex());
     QMessageBox::StandardButton reply;
 
-    reply = QMessageBox::question(this, "", "Are you sure you want to remove " + path + "?");
+    reply = QMessageBox::question(this, "", "Are you sure you want to remove '" + path + "'?");
     if (reply == QMessageBox::No)
         return;
     if (QDir(path).exists())
