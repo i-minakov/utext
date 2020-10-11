@@ -6,11 +6,15 @@ SubWindow::SubWindow(MainWindow *window, QWidget *parent) :
     QWidget(parent), ui(new Ui::SubWindow), m_parent(window) {
     ui->setupUi(this);
     m_search->hide();
-    connect(ui->FileList, &QTabWidget::tabCloseRequested, this, &SubWindow::closeTab);
     m_completer->setModel(modelFromFile(WORDLIST));
     m_completer->setModelSorting(QCompleter::CaseInsensitivelySortedModel);
     m_completer->setCaseSensitivity(Qt::CaseInsensitive);
     m_completer->setWrapAround(false);
+    connect(ui->FileList, &QTabWidget::tabCloseRequested, this, &SubWindow::closeTab);
+    connect(ui->FileList, &QTabWidget::currentChanged, [this]() {
+        if (m_search->isVisible())
+            this->textRecieve(m_search->getFindText());
+    });
 }
 
 SubWindow::~SubWindow() {
@@ -82,8 +86,7 @@ QMap<QString, QPlainTextEdit *> &SubWindow::getFiles() {
 }
 
 void SubWindow::keyPressEvent(QKeyEvent *event) {
-    if ((event->key() == Qt::Key_F)  && QApplication::keyboardModifiers()
-                && Qt::ControlModifier)
+    if ((event->key() == Qt::Key_F)  && QApplication::keyboardModifiers() && Qt::ControlModifier)
         showSearch();
 }
 
@@ -94,6 +97,7 @@ void SubWindow::showSearch() {
     m_search->show();
     m_search->raise();
     m_search->hideAction();
+    m_search->setFinFocus();
 }
 
 void SubWindow::dropEvent(QDropEvent *event) {
@@ -118,11 +122,11 @@ void SubWindow::dragEnterEvent(QDragEnterEvent *event) {
 }
 
 QPlainTextEdit *SubWindow::getActivArea() {
-    for (auto &i : m_files) {
-        if (i->isEnabled())
-            return i;
-    }
-    return nullptr;
+    auto itr = m_files.begin();
+
+    for (int i = ui->FileList->currentIndex(); i > 0; i--)
+        itr++;
+    return itr.value();
 }
 
 void SubWindow::replaceBut() {
