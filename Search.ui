@@ -125,6 +125,9 @@
           <height>0</height>
          </size>
         </property>
+        <property name="placeholderText">
+         <string>Find</string>
+        </property>
        </widget>
       </item>
       <item>
@@ -140,6 +143,9 @@
           <width>0</width>
           <height>0</height>
          </size>
+        </property>
+        <property name="placeholderText">
+         <string>Replace</string>
         </property>
        </widget>
       </item>

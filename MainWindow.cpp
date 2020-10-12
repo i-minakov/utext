@@ -6,6 +6,36 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->FileTree->setCurrentIndex(0);
     ui->TreeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->actionOpen_Folder, &QAction::triggered, this, &MainWindow::chooseDir);
+    connect(ui->actionSave_as_2, &QAction::triggered,  [this]() {
+        for (auto &i : m_screen) {
+            QMap<QString, QPlainTextEdit *> files = i->getFiles();
+            for (auto &j : i->getFiles()) {
+                if (j->isEnabled() && j->hasFocus()) {
+                    QString file = QFileDialog::getSaveFileName(this, "Save file", "", nullptr, nullptr);
+                    QFile saveFile(file);
+                    if (!saveFile.open(QIODevice::Truncate | QIODevice::WriteOnly))
+                        return;
+                    QTextStream st(&saveFile);
+                    st << j->toPlainText();
+                }
+            }
+        }
+    });
+    connect(ui->actionSave_2, &QAction::triggered, [this]() {
+        for (auto &i : m_screen) {
+            QMap<QString, QPlainTextEdit *> files = i->getFiles();
+            for (auto &j : i->getFiles()) {
+                if (j->isEnabled() && j->hasFocus()) {
+                    QFile saveFile(files.key(j));
+                    if (!saveFile.open(QIODevice::Truncate | QIODevice::WriteOnly))
+                        return;
+                    QTextStream st(&saveFile);
+                    st << j->toPlainText();
+                }
+            }
+        }
+    });
 
     connect(ui->ChooseDir, &QPushButton::clicked, this, &MainWindow::chooseDir);
     connect(ui->ChNewDir, &QPushButton::clicked, [this]() {
@@ -59,6 +89,8 @@ void MainWindow::removeItem() {
 void MainWindow::renameItem() {
     QString path = m_DirList->filePath(ui->TreeView->currentIndex());
     QString name = QInputDialog::getText(this, "", "Name");
+    if (name.isEmpty())
+        return;
     if (QDir(path).exists())
         QDir(path).rename(QDir(path).dirName(), name);
     else

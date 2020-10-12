@@ -4,6 +4,7 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
+    w.setWindowTitle("Лучше чем VS Code");
     w.show();
 
     int flag = a.exec();
