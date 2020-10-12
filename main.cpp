@@ -8,6 +8,6 @@ int main(int argc, char *argv[]) {
     w.show();
 
     int flag = a.exec();
-//    system("leaks -q utext");
+    system("leaks -q utext");
     return flag;
 }

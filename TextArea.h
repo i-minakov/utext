@@ -7,6 +7,7 @@
 #include <QAbstractItemView>
 #include <QScrollBar>
 #include <QPlainTextEdit>
+#include <QShortcut>
 
 #define LENGTH 1
 
@@ -29,7 +30,8 @@ private slots:
 
 private:
     QString textUnderCursor() const;
-
+    QShortcut *m_zoomIn {new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Equal), this)};
+    QShortcut *m_zoomOut {new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Minus), this)};
     QCompleter *m_completer = nullptr;
 };
 

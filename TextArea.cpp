@@ -1,7 +1,16 @@
 #include "TextArea.h"
 
 TextEdit::TextEdit(QWidget *parent) : QPlainTextEdit(parent) {
-
+    connect(m_zoomIn, &QShortcut::activated, [=](){
+        QFont f = font();
+        f.setPointSize(f.pointSize() + 2);
+        this->setFont(f);
+    });
+    connect(m_zoomOut, &QShortcut::activated, [=](){
+        QFont f = font();
+        f.setPointSize(f.pointSize() - 2);
+        this->setFont(f);
+    });
 }
 
 TextEdit::~TextEdit() {
