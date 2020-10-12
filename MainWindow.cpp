@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->FileTree->setCurrentIndex(0);
     ui->TreeView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->actionOpen_Folder, &QAction::triggered, this, &MainWindow::chooseDir);
+    connect(ui->actionQuit, &QAction::triggered, [=](){QApplication::quit();});
+    connect(ui->actionAbout, &QAction::triggered, [=](){
+        QMessageBox::about(this, "", "Developers of this programm the most sexiest guys ever!\nDonate: ");
+    });
     connect(ui->actionSave_as_2, &QAction::triggered,  [this]() {
         for (auto &i : m_screen) {
             QMap<QString, QPlainTextEdit *> files = i->getFiles();

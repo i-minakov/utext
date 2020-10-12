@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset theme=":/resources/cut.svg">
+    <normaloff>.</normaloff>.</iconset>
+  </property>
   <widget class="QWidget" name="MainWindowLO">
    <property name="acceptDrops">
     <bool>true</bool>
@@ -64,10 +68,10 @@
         <bool>true</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: #22272D;</string>
+        <string notr="true">background-color: #27323E;</string>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="ChooseSreen">
         <property name="acceptDrops">
@@ -96,6 +100,9 @@
            </property>
            <property name="acceptDrops">
             <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: #FFFFFF;</string>
            </property>
            <property name="text">
             <string>Choose DIr</string>
@@ -156,6 +163,9 @@
             </property>
             <item>
              <widget class="QLabel" name="DirName">
+              <property name="styleSheet">
+               <string notr="true">color: #FFFFFF;</string>
+              </property>
               <property name="text">
                <string>DirName</string>
               </property>
@@ -287,6 +297,9 @@
            <property name="acceptDrops">
             <bool>true</bool>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color: #FFFFFF;</string>
+           </property>
            <property name="dragDropOverwriteMode">
             <bool>false</bool>
            </property>
@@ -352,6 +365,7 @@
     <addaction name="actionOpen_Folder"/>
     <addaction name="actionSave_2"/>
     <addaction name="actionSave_as_2"/>
+    <addaction name="actionAbout"/>
     <addaction name="actionQuit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -365,7 +379,7 @@
    </property>
    <property name="maximumSize">
     <size>
-     <width>25</width>
+     <width>46</width>
      <height>16777215</height>
     </size>
    </property>
@@ -373,8 +387,10 @@
     <enum>Qt::DefaultContextMenu</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #22272D;
-border: none;</string>
+    <string notr="true">background-color: #414952;
+border: none;
+color: #FFFFFF;
+margin-bottom: 15px</string>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -387,9 +403,12 @@ border: none;</string>
    </property>
    <property name="iconSize">
     <size>
-     <width>20</width>
+     <width>46</width>
      <height>20</height>
     </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonIconOnly</enum>
    </property>
    <attribute name="toolBarArea">
     <enum>LeftToolBarArea</enum>
@@ -549,6 +568,11 @@ border: none;</string>
   <action name="actionSave_as_2">
    <property name="text">
     <string>Save as..</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

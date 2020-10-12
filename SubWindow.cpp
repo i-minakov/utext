@@ -138,6 +138,8 @@ void SubWindow::replaceBut() {
 }
 
 void SubWindow::upSearch() {
+    if (m_searchIt == nullptr)
+        return;
     if (m_searchIt == m_match.begin())
         m_searchIt = m_match.end() - 1;
     else
@@ -146,6 +148,8 @@ void SubWindow::upSearch() {
 }
 
 void SubWindow::downSearch() {
+    if (m_searchIt == nullptr)
+        return;
     if (m_searchIt == m_match.end() - 1)
         m_searchIt = m_match.begin();
     else
@@ -155,6 +159,7 @@ void SubWindow::downSearch() {
 
 void SubWindow::textRecieve(QString text) {
     m_match.clear();
+    m_searchIt = nullptr;
     if (text.isEmpty())
         return;
     QRegularExpression regex(text, QRegularExpression::CaseInsensitiveOption);

@@ -56,7 +56,7 @@ private:
     QMap<QString, QPlainTextEdit *> m_files;
     Search *m_search {new Search(this)};
     QVector<QTextCursor> m_match;
-    QVector<QTextCursor>::iterator m_searchIt {m_match.begin()};
+    QVector<QTextCursor>::iterator m_searchIt{nullptr};
     QCompleter *m_completer {new QCompleter(this)};
 
 public slots:

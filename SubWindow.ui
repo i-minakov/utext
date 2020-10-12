@@ -40,6 +40,9 @@
    </property>
    <item>
     <widget class="QTabWidget" name="FileList">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="currentIndex">
       <number>-1</number>
      </property>

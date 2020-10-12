@@ -4,7 +4,7 @@
 #include "SubWindow.h"
 #include <QMessageBox>
 
-#define TOOLBARSIZE 25
+#define TOOLBARSIZE 46
 
 namespace Ui {
     class MainWindow;

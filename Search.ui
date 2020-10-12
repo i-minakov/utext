@@ -98,7 +98,8 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: none;</string>
+         <string notr="true">border: none;
+background-color: #384959;</string>
         </property>
         <property name="text">
          <string/>
@@ -115,7 +116,7 @@
    <item>
     <widget class="QWidget" name="FinRepWd" native="true">
      <property name="styleSheet">
-      <string/>
+      <string notr="true">background-color: #384959;</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -131,6 +132,9 @@
           <width>0</width>
           <height>0</height>
          </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #FFFFFF;</string>
         </property>
         <property name="placeholderText">
          <string>Find</string>
@@ -150,6 +154,9 @@
           <width>0</width>
           <height>0</height>
          </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #FFFFFF;</string>
         </property>
         <property name="placeholderText">
          <string>Replace</string>
@@ -174,7 +181,7 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">background-color: #364656;</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
@@ -213,7 +220,8 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: none;</string>
+         <string notr="true">border: none;
+background-color: #384959;</string>
         </property>
         <property name="text">
          <string/>
@@ -245,7 +253,8 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: none;</string>
+         <string notr="true">border: none;
+background-color: #384959;</string>
         </property>
         <property name="text">
          <string/>
@@ -277,7 +286,8 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: none;</string>
+         <string notr="true">border: none;
+background-color: #384959;</string>
         </property>
         <property name="text">
          <string/>
