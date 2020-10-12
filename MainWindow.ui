@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>748</width>
-    <height>682</height>
+    <width>500</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -64,10 +64,10 @@
         <bool>true</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">background-color: #22272D;</string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="ChooseSreen">
         <property name="acceptDrops">
@@ -164,7 +164,7 @@
             <item>
              <widget class="QPushButton" name="ChNewDir">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -187,12 +187,18 @@
               <property name="text">
                <string>1</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>16</width>
+                <height>16</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="Create">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -220,7 +226,7 @@
             <item>
              <widget class="QPushButton" name="Remove">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -248,7 +254,7 @@
             <item>
              <widget class="QPushButton" name="CloseDir">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -305,6 +311,9 @@
          <height>0</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #FFFFFF;</string>
+       </property>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <property name="spacing">
          <number>0</number>
@@ -332,7 +341,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>748</width>
+     <width>500</width>
      <height>22</height>
     </rect>
    </property>
@@ -350,7 +359,7 @@
   <widget class="QToolBar" name="mainToolBar">
    <property name="minimumSize">
     <size>
-     <width>25</width>
+     <width>0</width>
      <height>0</height>
     </size>
    </property>
@@ -363,6 +372,10 @@
    <property name="contextMenuPolicy">
     <enum>Qt::DefaultContextMenu</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #22272D;
+border: none;</string>
+   </property>
    <property name="movable">
     <bool>true</bool>
    </property>
@@ -371,6 +384,12 @@
    </property>
    <property name="orientation">
     <enum>Qt::Vertical</enum>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>20</width>
+     <height>20</height>
+    </size>
    </property>
    <attribute name="toolBarArea">
     <enum>LeftToolBarArea</enum>
@@ -396,11 +415,19 @@
    <addaction name="actionFont"/>
   </widget>
   <action name="actionHide">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/hide.svg</normaloff>:/resources/hide.svg</iconset>
+   </property>
    <property name="text">
     <string>Hide</string>
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/save.svg</normaloff>:/resources/save.svg</iconset>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
@@ -409,11 +436,19 @@
    </property>
   </action>
   <action name="actionPaste">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/paste.svg</normaloff>:/resources/paste.svg</iconset>
+   </property>
    <property name="text">
     <string>Paste</string>
    </property>
   </action>
   <action name="actionCut">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/cut.svg</normaloff>:/resources/cut.svg</iconset>
+   </property>
    <property name="text">
     <string>Cut</string>
    </property>
@@ -422,26 +457,46 @@
    </property>
   </action>
   <action name="actionFind">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/find.svg</normaloff>:/resources/find.svg</iconset>
+   </property>
    <property name="text">
     <string>Find</string>
    </property>
   </action>
   <action name="actionReplace">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/replace.svg</normaloff>:/resources/replace.svg</iconset>
+   </property>
    <property name="text">
     <string>Replace</string>
    </property>
   </action>
   <action name="actionUndo">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/undo.svg</normaloff>:/resources/undo.svg</iconset>
+   </property>
    <property name="text">
     <string>Undo</string>
    </property>
   </action>
   <action name="actionRedo">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/redo.svg</normaloff>:/resources/redo.svg</iconset>
+   </property>
    <property name="text">
     <string>Redo</string>
    </property>
   </action>
   <action name="actionCopy">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/copy.svg</normaloff>:/resources/copy.svg</iconset>
+   </property>
    <property name="text">
     <string>Copy</string>
    </property>
@@ -450,6 +505,10 @@
    </property>
   </action>
   <action name="actionFont">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/font-size.svg</normaloff>:/resources/font-size.svg</iconset>
+   </property>
    <property name="text">
     <string>Font</string>
    </property>
@@ -458,6 +517,10 @@
    </property>
   </action>
   <action name="actionSave_as">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/save_as.svg</normaloff>:/resources/save_as.svg</iconset>
+   </property>
    <property name="text">
     <string>Save as...</string>
    </property>
@@ -490,6 +553,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

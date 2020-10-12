@@ -40,6 +40,7 @@ void Search::hideAction() {
     ui->ButtonsWd->setLayout(layout);
     ui->ButtonsWd->setMinimumWidth(ui->Rep->isVisible() ? 90 : 45);
     ui->ButtonsWd->setMaximumWidth(ui->Rep->isVisible() ? 90 : 45);
+    ui->Hide->setIcon(ui->Rep->isVisible() ? QIcon(":/resources/arrow1.svg") : QIcon(":/resources/arrow2.svg"));
     this->setMinimumHeight(ui->Rep->isVisible() ? 50 : 100);
     this->setMaximumHeight(ui->Rep->isVisible() ? 50 : 100);
     ui->Rep->isVisible() ? ui->Rep->hide() : ui->Rep->show();

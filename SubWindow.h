@@ -29,7 +29,7 @@
 class MainWindow;
 
 namespace Ui {
-class SubWindow;
+    class SubWindow;
 }
 
 class SubWindow : public QWidget {

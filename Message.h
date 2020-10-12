@@ -4,7 +4,7 @@
 #include <QDialog>
 
 namespace Ui {
-class Message;
+    class Message;
 }
 
 class Message : public QDialog {

@@ -1,5 +1,26 @@
 <RCC>
-    <qresource prefix="/compliter">
+    <qresource prefix="/resources">
         <file>wordlist.txt</file>
+        <file>arrow1.svg</file>
+        <file>arrow2.svg</file>
+        <file>close.svg</file>
+        <file>copy.svg</file>
+        <file>cross.svg</file>
+        <file>cut.svg</file>
+        <file>down.svg</file>
+        <file>find.svg</file>
+        <file>font-size.svg</file>
+        <file>hide.svg</file>
+        <file>newdir.svg</file>
+        <file>newfile.svg</file>
+        <file>paste.svg</file>
+        <file>redo.svg</file>
+        <file>removefile.svg</file>
+        <file>replace.svg</file>
+        <file>save_as.svg</file>
+        <file>save.svg</file>
+        <file>undo.svg</file>
+        <file>up.svg</file>
     </qresource>
+    <qresource prefix="/icons"/>
 </RCC>

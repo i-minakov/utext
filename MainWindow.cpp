@@ -61,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         for (auto &i : m_screen)
             for (int j = i->getFiles().size() - 1; j >= 0; j--)
                 i->closeTab(j);
+        ui->FileTree->setCurrentIndex(0);
     });
     connect(ui->Create, &QPushButton::clicked, this, &MainWindow::createFile);
     connect(ui->TreeView, SIGNAL(customContextMenuRequested(QPoint)),

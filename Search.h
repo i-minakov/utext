@@ -4,7 +4,7 @@
 #include <QWidget>
 
 namespace Ui {
-class Search;
+    class Search;
 }
 
 class Search : public QWidget {
