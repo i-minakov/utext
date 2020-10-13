@@ -106,7 +106,7 @@ void SubWindow::dropEvent(QDropEvent *event) {
             QFile file(url.toLocalFile());
 
             if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                Message error("Invalid file" + url.toLocalFile());
+                Message error("Invalid file\n" + url.toLocalFile());
                 return ;
             }
             else if (!m_parent->getScreen().empty() && m_parent->checkFile(file.fileName()) != nullptr)

@@ -289,7 +289,7 @@ void MainWindow::elementClicked(QModelIndex modelIndex) {
     QFile file(path);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        Message error("Invalid file" + path);
+        Message error("Invalid file\n" + path);
         return ;
     }
     else if (!m_screen.empty() && checkFile(file.fileName()) != nullptr)

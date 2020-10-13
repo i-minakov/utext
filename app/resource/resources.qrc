@@ -22,6 +22,7 @@
         <file>undo.svg</file>
         <file>up.svg</file>
         <file>text.svg</file>
+        <file>error.svg</file>
     </qresource>
     <qresource prefix="/icons"/>
 </RCC>

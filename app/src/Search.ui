@@ -26,7 +26,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #22272D;</string>
+   <string notr="true">background-color: #1e1f1c;</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1,0">
    <property name="spacing">
@@ -98,14 +98,13 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: none;
-background-color: #384959;</string>
+         <string notr="true">border: none;</string>
         </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="resources.qrc">
+         <iconset>
           <normaloff>:/resources/arrow1.svg</normaloff>:/resources/arrow1.svg</iconset>
         </property>
        </widget>
@@ -116,9 +115,15 @@ background-color: #384959;</string>
    <item>
     <widget class="QWidget" name="FinRepWd" native="true">
      <property name="styleSheet">
-      <string notr="true">background-color: #384959;</string>
+      <string notr="true"/>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QLineEdit" name="Fin">
         <property name="sizePolicy">
@@ -134,7 +139,7 @@ background-color: #384959;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: #FFFFFF;</string>
+         <string notr="true">background-color: #414339;</string>
         </property>
         <property name="placeholderText">
          <string>Find</string>
@@ -156,7 +161,7 @@ background-color: #384959;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: #FFFFFF;</string>
+         <string notr="true">background-color: #414339;</string>
         </property>
         <property name="placeholderText">
          <string>Replace</string>
@@ -181,7 +186,7 @@ background-color: #384959;</string>
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: #364656;</string>
+      <string notr="true"/>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
@@ -220,14 +225,13 @@ background-color: #384959;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: none;
-background-color: #384959;</string>
+         <string notr="true">border: none;</string>
         </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="resources.qrc">
+         <iconset>
           <normaloff>:/resources/cross.svg</normaloff>:/resources/cross.svg</iconset>
         </property>
        </widget>
@@ -253,14 +257,13 @@ background-color: #384959;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: none;
-background-color: #384959;</string>
+         <string notr="true">border: none;</string>
         </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="resources.qrc">
+         <iconset>
           <normaloff>:/resources/up.svg</normaloff>:/resources/up.svg</iconset>
         </property>
        </widget>
@@ -286,14 +289,13 @@ background-color: #384959;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: none;
-background-color: #384959;</string>
+         <string notr="true">border: none;</string>
         </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="resources.qrc">
+         <iconset>
           <normaloff>:/resources/down.svg</normaloff>:/resources/down.svg</iconset>
         </property>
        </widget>
