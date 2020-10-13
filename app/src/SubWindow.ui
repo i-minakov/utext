@@ -41,7 +41,9 @@
    <item>
     <widget class="QTabWidget" name="FileList">
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">background-color: #1F2730;
+color: #F5F5F5;
+border: none;</string>
      </property>
      <property name="currentIndex">
       <number>-1</number>

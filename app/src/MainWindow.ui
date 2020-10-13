@@ -71,7 +71,7 @@
         <string notr="true">background-color: #27323E;</string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="ChooseSreen">
         <property name="acceptDrops">
@@ -181,7 +181,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>30</width>
+                <width>50</width>
                 <height>30</height>
                </size>
               </property>
@@ -194,8 +194,18 @@
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>Choose folder</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">margin-right: 15px</string>
+              </property>
               <property name="text">
-               <string>1</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/resources/newdir.svg</normaloff>:/resources/newdir.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -215,7 +225,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>30</width>
+                <width>50</width>
                 <height>30</height>
                </size>
               </property>
@@ -228,8 +238,18 @@
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>New File</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">margin-right: 15px</string>
+              </property>
               <property name="text">
-               <string>2</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/resources/newfile.svg</normaloff>:/resources/newfile.svg</iconset>
               </property>
              </widget>
             </item>
@@ -243,7 +263,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>30</width>
+                <width>50</width>
                 <height>30</height>
                </size>
               </property>
@@ -256,8 +276,18 @@
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>Remove Item</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">margin-right: 15px</string>
+              </property>
               <property name="text">
-               <string>3</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/resources/removefile.svg</normaloff>:/resources/removefile.svg</iconset>
               </property>
              </widget>
             </item>
@@ -271,7 +301,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>30</width>
+                <width>50</width>
                 <height>30</height>
                </size>
               </property>
@@ -284,8 +314,21 @@
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>Close Folder</string>
+              </property>
+              <property name="toolTipDuration">
+               <number>-1</number>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">margin-right: 15px</string>
+              </property>
               <property name="text">
-               <string>4</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/resources/close.svg</normaloff>:/resources/close.svg</iconset>
               </property>
              </widget>
             </item>
@@ -298,7 +341,7 @@
             <bool>true</bool>
            </property>
            <property name="styleSheet">
-            <string notr="true">color: #FFFFFF;</string>
+            <string notr="true">color: #FFFFFF;border: none;</string>
            </property>
            <property name="dragDropOverwriteMode">
             <bool>false</bool>

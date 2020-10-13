@@ -24,7 +24,7 @@
 #include "Help.h"
 #include "TextArea.h"
 
-#define WORDLIST ":/compliter/wordlist.txt"
+#define WORDLIST ":/resources/wordlist.txt"
 
 class MainWindow;
 
