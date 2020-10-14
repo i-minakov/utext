@@ -47,6 +47,7 @@ public:
     void setFocusTab(int index);
     Search *getSerach();
     void showSearch();
+    void setTheme(bool dark);
 
 private:
     QAbstractItemModel *modelFromFile(const QString& fileName);

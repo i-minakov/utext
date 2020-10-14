@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->TreeView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->actionOpen_Folder, &QAction::triggered, this, &MainWindow::chooseDir);
     connect(ui->actionQuit, &QAction::triggered, [=](){QApplication::quit();});
+    checkTheme();
     connect(ui->actionAbout, &QAction::triggered, [=](){
         QMessageBox::about(this, "", "Developers of this programm the most sexiest guys ever!\nDonate: ");
     });
@@ -76,6 +77,39 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+void MainWindow::checkTheme() {
+    QSettings set("settings.conf",QSettings::NativeFormat);
+    m_theme = set.value("theme/checked", true).toBool();
+    if (m_theme)
+        ui->actionDark->setChecked(true);
+    else
+        ui->actionLight->setChecked(true);
+    connect(ui->actionDark, &QAction::triggered, [=](){
+       if (this->ui->actionDark->isChecked()) {
+           this->ui->actionLight->setChecked(false);
+           this->m_theme = true;
+           QSettings set("settings.conf",QSettings::NativeFormat);
+           set.setValue("theme/checked", true);
+           for (auto &i : this->m_screen)
+               i->setTheme(true);
+       }
+       else
+           this->ui->actionDark->setChecked(true);
+    });
+    connect(ui->actionLight, &QAction::triggered, [=](){
+       if (this->ui->actionLight->isChecked()) {
+           this->ui->actionDark->setChecked(false);
+           m_theme = false;
+           QSettings set("settings.conf",QSettings::NativeFormat);
+           set.setValue("theme/checked", false);
+           for (auto &i : this->m_screen)
+               i->setTheme(false);
+       }
+       else
+           this->ui->actionLight->setChecked(true);
+    });
 }
 
 void MainWindow::removeItem() {
@@ -298,6 +332,7 @@ void MainWindow::elementClicked(QModelIndex modelIndex) {
         return ;
     SubWindow *screen = new SubWindow(this);
 
+    screen->setTheme(m_theme);
     ui->TextArea->hide();
     ui->MainWindowSP->addWidget(screen);
     m_screen.push_back(screen);

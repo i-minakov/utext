@@ -14,10 +14,10 @@ set(UI src/MainWindow.ui src/SubWindow.ui src/Search.ui src/Message.ui)
 project(${NAME})
 
 add_compile_options(
-    -Wall
-    -Wextra
-    -Werror
-    -Wpedantic
+    #-Wall
+    #-Wextra
+    #-Werror
+    #-Wpedantic
 )
 
 add_subdirectory(src)

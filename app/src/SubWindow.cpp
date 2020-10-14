@@ -21,6 +21,23 @@ SubWindow::~SubWindow() {
     delete ui;
 }
 
+void SubWindow::setTheme(bool dark) {
+    if (dark == true) {
+        //Dark тут можешь ничего не писать, оно его дефолтным закинет с qt creator`а
+        setStyleSheet("");
+        ui->FileList->setStyleSheet("");
+        for (auto &i : this->m_files)
+            i->setStyleSheet("");
+    }
+    else {
+        // Light а вот тут задавай для светлой темы
+        setStyleSheet("background-color: #FFFFFF");
+        ui->FileList->setStyleSheet("background-color: #FFFFFF");
+        for (auto &i : this->m_files)
+            i->setStyleSheet("background-color: #FFFFFF");
+    }
+}
+
 void SubWindow::addNewFile(QFile *file) {
     QWidget *newTab = new QWidget(ui->FileList);
     QVBoxLayout *vbox = new QVBoxLayout();

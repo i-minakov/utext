@@ -25,11 +25,13 @@ public:
     QWidget *checkFile(QString path);
     QVector<SubWindow *> &getScreen();
     void saveToFile(QString path, QString text);
+    void checkTheme();
 
 private:
     Ui::MainWindow *ui;
     QFileSystemModel *m_DirList {new QFileSystemModel(this)};
     QVector<SubWindow *> m_screen;
+    bool m_theme;
 
 public slots:
     void resizeEvent(QResizeEvent *event) override;
