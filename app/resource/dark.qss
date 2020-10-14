@@ -1,51 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
- <class>SubWindow</class>
- <widget class="QWidget" name="SubWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>372</width>
-    <height>626</height>
-   </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>250</width>
-    <height>0</height>
-   </size>
-  </property>
-  <property name="acceptDrops">
-   <bool>true</bool>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: #272822;
-</string>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
-   <item>
-    <widget class="QTabWidget" name="FileList">
-     <property name="styleSheet">
-      <string notr="true">QTabWidget::pane {
+QTabWidget::pane {
 	background: #75715e; /*color*/
 }
 
@@ -122,18 +75,3 @@ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 	background: none;
 }
-</string>
-     </property>
-     <property name="currentIndex">
-      <number>-1</number>
-     </property>
-     <property name="tabsClosable">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-  </layout>
- </widget>
- <resources/>
- <connections/>
-</ui>

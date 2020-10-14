@@ -73,6 +73,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         this, SLOT(treeCustomMenu(QPoint)));
     connect(ui->Remove, SIGNAL(clicked()), this, SLOT(removeItem()));
     setSignals();
+    ui->actionDark->isChecked()
+        ? ui->actionDark->activate(QAction::Trigger)
+        : ui->actionLight->activate(QAction::Trigger);
 }
 
 MainWindow::~MainWindow() {
@@ -87,27 +90,35 @@ void MainWindow::checkTheme() {
     else
         ui->actionLight->setChecked(true);
     connect(ui->actionDark, &QAction::triggered, [=](){
-       if (this->ui->actionDark->isChecked()) {
-           this->ui->actionLight->setChecked(false);
-           this->m_theme = true;
-           QSettings set("settings.conf",QSettings::NativeFormat);
-           set.setValue("theme/checked", true);
-           for (auto &i : this->m_screen)
-               i->setTheme(true);
-       }
-       else
-           this->ui->actionDark->setChecked(true);
+        ui->mainToolBar->setStyleSheet("background-color: #272822;"
+            "border: none;""margin-bottom: 15px");
+        ui->TreeBar->setStyleSheet("background-color: #272822;");
+        ui->TextArea->setStyleSheet("background-color: #272822;");
+        if (this->ui->actionDark->isChecked()) {
+            this->ui->actionLight->setChecked(false);
+            this->m_theme = true;
+            QSettings set("settings.conf",QSettings::NativeFormat);
+            set.setValue("theme/checked", true);
+            for (auto &i : this->m_screen)
+                i->setTheme(true);
+        }
+        else
+            this->ui->actionDark->setChecked(true);
     });
     connect(ui->actionLight, &QAction::triggered, [=](){
-       if (this->ui->actionLight->isChecked()) {
-           this->ui->actionDark->setChecked(false);
-           m_theme = false;
-           QSettings set("settings.conf",QSettings::NativeFormat);
-           set.setValue("theme/checked", false);
-           for (auto &i : this->m_screen)
-               i->setTheme(false);
-       }
-       else
+        ui->mainToolBar->setStyleSheet("background-color: #362821;"
+            "border: none;""margin-bottom: 15px");
+        ui->TreeBar->setStyleSheet("background-color: #362821;");
+        ui->TextArea->setStyleSheet("background-color: #362821;");
+        if (this->ui->actionLight->isChecked()) {
+            this->ui->actionDark->setChecked(false);
+            m_theme = false;
+            QSettings set("settings.conf",QSettings::NativeFormat);
+            set.setValue("theme/checked", false);
+            for (auto &i : this->m_screen)
+                i->setTheme(false);
+        }
+        else
            this->ui->actionLight->setChecked(true);
     });
 }

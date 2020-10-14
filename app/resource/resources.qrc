@@ -23,6 +23,8 @@
         <file>up.svg</file>
         <file>text.svg</file>
         <file>error.svg</file>
+        <file>dark.qss</file>
+        <file>light.qss</file>
     </qresource>
     <qresource prefix="/icons"/>
 </RCC>

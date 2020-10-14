@@ -22,20 +22,14 @@ SubWindow::~SubWindow() {
 }
 
 void SubWindow::setTheme(bool dark) {
-    if (dark == true) {
-        //Dark тут можешь ничего не писать, оно его дефолтным закинет с qt creator`а
-        setStyleSheet("");
-        ui->FileList->setStyleSheet("");
-        for (auto &i : this->m_files)
-            i->setStyleSheet("");
-    }
-    else {
-        // Light а вот тут задавай для светлой темы
-        setStyleSheet("background-color: #FFFFFF");
-        ui->FileList->setStyleSheet("background-color: #FFFFFF");
-        for (auto &i : this->m_files)
-            i->setStyleSheet("background-color: #FFFFFF");
-    }
+    QFile File(dark ? ":/resources/dark.qss" : ":/resources/light.qss");
+    File.open(QFile::ReadOnly);
+    QString StyleSheet = QLatin1String(File.readAll());
+
+    this->setStyleSheet(dark ? "background-color: #272822;" : "background-color: #362821;");
+    ui->FileList->setStyleSheet(StyleSheet);
+    for (auto &i : this->m_files)
+        i->setStyleSheet(StyleSheet);
 }
 
 void SubWindow::addNewFile(QFile *file) {
