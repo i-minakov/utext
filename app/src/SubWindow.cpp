@@ -142,10 +142,11 @@ QPlainTextEdit *SubWindow::getActivArea() {
 
 void SubWindow::replaceBut() {
     QString repl = m_search->getReplaceText();
-    if (repl.isEmpty())
+    if (repl.isEmpty() || m_searchIt == nullptr)
         return;
-    m_searchIt->insertText(m_search->getReplaceText());
-    downSearch();
+    m_searchIt->insertText(repl);
+    m_searchIt = m_match.erase(m_searchIt);
+    m_searchIt == m_match.end() ? m_searchIt = nullptr : 0;
 }
 
 void SubWindow::upSearch() {
@@ -159,7 +160,7 @@ void SubWindow::upSearch() {
 }
 
 void SubWindow::downSearch() {
-    if (m_searchIt == nullptr)
+    if (m_searchIt == nullptr) 
         return;
     if (m_searchIt == m_match.end() - 1)
         m_searchIt = m_match.begin();
